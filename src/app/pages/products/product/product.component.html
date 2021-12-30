@@ -1,1 +1,17 @@
-<p>product works!</p>
+<!-- la directiva de *ngFor y lo que hacemos es iterar el array de productos  -->
+<mat-card class="card"> 
+    <mat-card-header>
+        <mat-card-title>
+            {{product.name}}
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        {{product.description}}
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-flat-button color="primary" (click)="OnClick()">
+            Buy {{product.price | currency}}
+            <mat-icon>add_shopping_cart</mat-icon>
+        </button>
+    </mat-card-actions>
+</mat-card>

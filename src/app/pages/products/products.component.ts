@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { tap } from 'rxjs';
 import { Product } from './interfaces/product.interface';
 import { ProductsService } from './services/products.service';
+import { ShoppingCartService } from '../../shared/services/shopping-cart.service';
 
 @Component({
   selector: 'app-products',
@@ -13,7 +14,7 @@ export class ProductsComponent implements OnInit {
   products!: Product[];
 
   //para consumir el servicio debemos inyectar en el constructor
-  constructor(private productSvc: ProductsService) { }
+  constructor(private productSvc: ProductsService, private shoppingCartSvc: ShoppingCartService) { }
 
   ngOnInit(): void {
     this.productSvc.getProducts()
@@ -23,4 +24,8 @@ export class ProductsComponent implements OnInit {
     .subscribe();
   }
 
+  addToCart(product:Product):void{
+    this.shoppingCartSvc.updateCart(product);
+    
+  }
 }
