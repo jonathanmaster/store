@@ -25,3 +25,25 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Server de desarrollo
+
+Una vez clonado este repositorio, debe instalar las dependencias.
+
+1. `npm install`
+2. `cd curso-angular-12`
+
+#### Ejecute el backend
+
+3. `npm run serverAPI`
+
+#### Front-end
+
+4. `ng serve`
+   Ahora abres tu navegador y visita `http://localhost:4200/`.
+   La aplicación se recargará automáticamente si cambia alguno de los archivos de origen.
+
+## Build
+
+Ejecuta `ng build` para generar el proyecto.
+Los ficheros generados estarán en la carpeta `dist/`.
