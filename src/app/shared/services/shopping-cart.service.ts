@@ -32,6 +32,13 @@ export class ShoppingCartService{
         this.calcTotal();
     }
 
+    //metodo para resetear el carrito
+    resetCart():void{
+        this.cartSubject.next([]);
+        this.totalSubject.next(0);
+        this.quantitySubject.next(0);
+    }
+
     // metodo no devuelve nada pero devuelve algo al carrito
     private addToCart(product:Product):void{
         const isProductInCart = this.products.find( ({id}) => id === product.id) //es por si queremos agregar el mismo una vez mas
@@ -60,6 +67,7 @@ export class ShoppingCartService{
         this.totalSubject.next(total); //para mostrar el valor con el metodo next
     }
 }
+
 
 
 

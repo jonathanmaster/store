@@ -9,7 +9,11 @@
         {{product.description}}
     </mat-card-content>
     <mat-card-actions>
-        <button mat-flat-button color="primary" (click)="OnClick()">
+        <button 
+        mat-flat-button 
+        color="primary" 
+        (click)="OnClick()" 
+        [disabled]="product.stock === 0">
             Buy {{product.price | currency}}
             <mat-icon>add_shopping_cart</mat-icon>
         </button>

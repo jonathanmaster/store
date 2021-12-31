@@ -9,7 +9,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of cart$ | async">
+      <!-- para que se vea el observable car$ utilizamos el | async -->
+      <tr *ngFor="let item of cart$ | async"> 
         <td>{{item.name}}</td>
         <td>{{item.qty}}</td>
         <td>{{item.price | currency}}</td>
