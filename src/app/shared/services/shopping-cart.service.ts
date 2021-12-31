@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Observable, Subject } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { Product } from "src/app/pages/products/interfaces/product.interface";
 
 
@@ -10,9 +10,9 @@ export class ShoppingCartService{
 
     products: Product[] = [];
 
-    private cartSubject = new Subject<Product[]>();
-    private totalSubject = new Subject<number>();
-    private quantitySubject = new Subject<number>();
+    private cartSubject = new BehaviorSubject<Product[]>([]);
+    private totalSubject = new BehaviorSubject<number>(0);
+    private quantitySubject = new BehaviorSubject<number>(0);
 
     //metodo para que lo consuman y mostrar el total
     get totalAction$(): Observable<number>{
@@ -34,21 +34,29 @@ export class ShoppingCartService{
 
     // metodo no devuelve nada pero devuelve algo al carrito
     private addToCart(product:Product):void{
-        this.products.push(product);
+        const isProductInCart = this.products.find( ({id}) => id === product.id) //es por si queremos agregar el mismo una vez mas
+
+        //si el metodo find no encuentra nada se va pa el else
+        if(isProductInCart){
+            isProductInCart.qty +=1;
+        }else{
+            this.products.push({... product, qty: 1})
+        }
+
         this.cartSubject.next(this.products);
     }
 
 
     //metodo para extraer todos los product que esta en el carrito
     private quantityProducts():void{
-        const quantity = this.products.length;
+        const quantity = this.products.reduce((acc,prod) => acc += prod.qty, 0);
         this.quantitySubject.next(quantity);
     }
 
 
     //para calcular la orden que pidieron
     private calcTotal():void{
-        const total = this.products.reduce((acc,prod) => acc += prod.price, 0)
+        const total = this.products.reduce((acc,prod) => acc += (prod.price * prod.qty), 0)
         this.totalSubject.next(total); //para mostrar el valor con el metodo next
     }
 }
